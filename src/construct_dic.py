@@ -1,4 +1,5 @@
 from lib2to3.pgen2 import token
+from tkinter import N
 from turtle import end_fill
 from typing import Set
 import nltk
@@ -9,7 +10,7 @@ df = pd.read_csv('data/IMDB_Dataset.csv')
 
 tagged_tokens_p_reviews = []
 tagged_tokens_n_reviews = []
-for row in df.head(40000).itertuples():
+for row in df.head(N).itertuples():
     text = row[1]
 
     text = text.lower()
@@ -24,6 +25,7 @@ for row in df.head(40000).itertuples():
     elif sentiment == 'negative':
         tagged_tokens_n_reviews.append(tagged_tokens)
 
+# 計算量エグいので、pandasの標準機能でリプレイスしよう
 tagged_token_set = set()
 for tagged_token_list in tagged_tokens_p_reviews:
     tagged_token_set = tagged_token_set | set(tagged_token_list)
